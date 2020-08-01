@@ -187,6 +187,9 @@ void UpdaterMSCKF::update(State *state, std::vector<Feature*>& feature_vec) {
         S.diagonal() += _options.sigma_pix_sq*Eigen::VectorXd::Ones(S.rows());
         double chi2 = res.dot(S.llt().solve(res));
 
+        // for debugging 
+        // std::cout << "sigma_pix_sq " << _options.sigma_pix_sq << std::endl; 
+
         // Get our threshold (we precompute up to 500 but handle the case that it is more)
         double chi2_check;
         if(res.rows() < 500) {

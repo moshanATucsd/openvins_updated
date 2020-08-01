@@ -93,6 +93,9 @@ bool UpdaterZeroVelocity::try_update(State *state, double timestamp) {
 
         // Measurement residual (true value is zero)
         res.block(6*i+0,0,3,1) = -(imu_recent.at(i).wm - state->_imu->bias_g());
+        // ignore rotation residual 
+        // res.block(6*i+0,0,3,1) = -(imu_recent.at(i).wm - state->_imu->bias_g()) * 0;
+
         if(!integrated_accel_constraint) {
             res.block(6*i+3,0,3,1) = -(a_hat - state->_imu->Rot()*_gravity);
         } else {
@@ -150,6 +153,9 @@ bool UpdaterZeroVelocity::try_update(State *state, double timestamp) {
         chi2_check = boost::math::quantile(chi_squared_dist, 0.95);
         printf(YELLOW "[ZUPT]: chi2_check over the residual limit - %d\n" RESET, (int)res.rows());
     }
+
+    // for debugging 
+    // std::cout << "_zupt_max_velocity " << _zupt_max_velocity << std::endl; 
 
     // Check if we are currently zero velocity
     // We need to pass the chi2 and not be above our velocity threshold

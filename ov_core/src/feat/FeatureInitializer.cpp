@@ -159,6 +159,10 @@ bool FeatureInitializer::single_triangulation(Feature* feat, std::unordered_map<
     // Store it in our feature object
     feat->p_FinA = p_f;
     feat->p_FinG = R_GtoA.transpose()*feat->p_FinA + p_AinG;
+
+    // // for debugging 
+    // std::cout << "feature position " << feat->p_FinG << std::endl; 
+
     return true;
 
 }

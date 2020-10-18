@@ -162,6 +162,10 @@ bool InertialInitializer::initialize_with_imu(double &time0, Eigen::Matrix<doubl
     b_a0 = ba;
     p_I0inG = Eigen::Matrix<double,3,1>::Zero();
 
+    // // for debugging 
+    // std::cout << "orientation " << quat_2_Rot(q_GtoI).transpose() << std::endl; 
+    // exit(0);
+
     // Done!!!
     return true;
 

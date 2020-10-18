@@ -75,6 +75,12 @@ namespace ov_msckf {
         /// Multiplier of our zupt measurement IMU noise matrix (default should be 1.0)
         double zupt_noise_multiplier = 1.0;
 
+        /// Initial Velocity in the IMU frame.
+        Eigen::Vector3d init_vel = {0.0, 0.0, 0.0};
+
+        /// Initial Quaternion in the IMU frame.
+        Eigen::Vector4d init_quat = {0.0, 0.0, 0.0, 1.0};
+
         /// If we should record the timing performance to file
         bool record_timing_information = false;
 

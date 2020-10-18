@@ -5,9 +5,9 @@
     <arg name="bag"         default="/media/erl/disk1/orcvio/opcity_smooth/docker_compose_opcity_20cars_quad.bag" />
 
     <!-- saving trajectory paths -->
-    <arg name="dosave"      default="false" />
-    <arg name="path_est"    default="/tmp/traj_estimate.txt" />
-    <arg name="path_time"   default="/tmp/traj_timing.txt" />
+    <arg name="dosave"      default="true" />
+    <arg name="path_est"    default="/home/erl/Workspace/catkin_ws_openvins_updated/src/open_vins/cache/traj_estimate.txt" />
+    <arg name="path_time"   default="/home/erl/Workspace/catkin_ws_openvins_updated/src/open_vins/cache/traj_timing.txt" />
 
 
     <!-- MASTER NODE! -->
@@ -33,8 +33,8 @@
         <param name="calib_cam_timeoffset"   type="bool"   value="false" />
         <param name="calib_camimu_dt"        type="double" value="0.0" />
         <param name="max_clones"             type="int"    value="11" />
-        <!-- <param name="max_slam"               type="int"    value="50" /> -->
-        <param name="max_slam"               type="int"    value="0" />
+        <param name="max_slam"               type="int"    value="50" />
+        <!-- <param name="max_slam"               type="int"    value="0" /> -->
         <param name="max_cameras"            type="int"    value="$(arg max_cameras)" />
         <param name="dt_slam_delay"          type="double" value="2" />
         <param name="feat_representation"    type="string" value="GLOBAL_3D" />
@@ -108,7 +108,7 @@
 
 
     <!-- play the dataset -->
-    <node pkg="rosbag" type="play" name="rosbag" args="-d 1 $(arg bag)" required="true"/>
+    <node pkg="rosbag" type="play" name="rosbag" args="--clock --start 20 $(arg bag)" required="true"/>
 
     <!-- record the trajectory if enabled -->
     <group if="$(arg dosave)">

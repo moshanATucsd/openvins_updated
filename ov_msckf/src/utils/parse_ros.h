@@ -98,6 +98,18 @@ namespace ov_msckf {
         nh.param<double>("init_window_time", params.init_window_time, params.init_window_time);
         nh.param<double>("init_imu_thresh", params.init_imu_thresh, params.init_imu_thresh);
 
+        // Initial Velocity
+        std::vector<double> init_vel = {params.init_vel(0), params.init_vel(1), params.init_vel(2)};
+        nh.param<std::vector<double>>("init_vel", init_vel, init_vel);
+        assert(init_vel.size()==3);
+        params.init_vel << init_vel.at(0), init_vel.at(1), init_vel.at(2);
+
+        // Initial Quaternion
+        std::vector<double> init_quat = {params.init_quat(0), params.init_quat(1), params.init_quat(2), params.init_quat(3)};
+        nh.param<std::vector<double>>("init_quat", init_quat, init_quat);
+        assert(init_quat.size()==4);
+        params.init_quat << init_quat.at(0), init_quat.at(1), init_quat.at(2), init_quat.at(3);
+
         // Zero velocity update
         nh.param<bool>("try_zupt", params.try_zupt, params.try_zupt);
         nh.param<int>("zupt_chi2_multipler", params.zupt_options.chi2_multipler, params.zupt_options.chi2_multipler);

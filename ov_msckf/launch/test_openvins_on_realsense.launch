@@ -3,7 +3,7 @@
     <!-- mono or stereo and what ros bag to play -->
     <arg name="max_cameras" default="1" />
     <!-- <arg name="bag" default="/media/erl/disk1/orcvio/realsense_bags/realsense_indoor2_1216.bag" /> -->
-    <arg name="bag"         default="/media/erl/disk1/orcvio/realsense_bags/realsense_atk_cck_1216.bag" />
+    <arg name="bag"         default="/media/erl/disk1/orcvio/mit_rosbags/phoenix_stack/indoor_vio4_vibmount_2020-11-02-08-54-48.bag" />
 
     <!-- saving trajectory paths -->
     <arg name="dosave"      default="false" />
@@ -15,8 +15,8 @@
     <node name="run_subscribe_msckf" pkg="ov_msckf" type="run_subscribe_msckf" output="screen" clear_params="true" required="true">
 
         <!-- bag topics -->
-        <param name="topic_imu"      type="string" value="/camera/imu" />
-        <param name="topic_camera0"  type="string" value="/camera/infra1/image_rect_raw" />
+        <param name="topic_imu"      type="string" value="/acl_jackal/forward/imu" />
+        <param name="topic_camera0"  type="string" value="/acl_jackal/forward/color/image_rect" />
         <param name="topic_camera1"  type="string" value="/camera/infra2/image_rect_raw" />
 
         <!-- world/filter parameters -->
@@ -80,7 +80,7 @@
         <!-- camera intrinsics -->
         <param name="cam0_is_fisheye" type="bool" value="false" />
         <param name="cam1_is_fisheye" type="bool" value="false" />
-        <rosparam param="cam0_k">[382.438, 382.438, 320.252, 239.208]</rosparam>
+        <rosparam param="cam0_k">[613.12158203125, 613.896240234375, 332.7018737792969, 241.21925354003906]</rosparam>
         <rosparam param="cam0_d">[0, 0, 0, 0]</rosparam>
         <rosparam param="cam1_k">[382.438, 382.438, 320.252, 239.208]</rosparam>
         <rosparam param="cam1_d">[0, 0, 0, 0]</rosparam>
@@ -89,9 +89,9 @@
         <!-- camera extrinsics -->
         <rosparam param="T_C0toI">
             [
-            1.,0.,0.,0.00552,
-            0.,1.,0.,-0.0051,
-            0.,0.,1.,-0.01174,
+            0, -1, 0, 0.0, 
+            0.0, 0, -1, 0, 
+            1, 0, 0, 0, 
             0., 0., 0., 1.
             ]
         </rosparam>
@@ -107,6 +107,7 @@
 
     </node>
 
+    <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/acl_jackal/forward/color/image_raw raw out:=/acl_jackal/forward/color/image_rect" />
 
     <!-- play the dataset -->
     <node pkg="rosbag" type="play" name="rosbag" args="-d 1 $(arg bag)" required="true"/>

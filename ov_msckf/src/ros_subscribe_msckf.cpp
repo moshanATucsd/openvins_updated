@@ -154,6 +154,10 @@ void callback_monocular(const sensor_msgs::ImageConstPtr& msg0) {
         return;
     }
 
+    // // for debugging 
+    // // check image timestamps 
+    // std::cout << "img timestamp " << cv_ptr->header.stamp.toSec() << std::endl; 
+
     // Fill our buffer if we have not
     if(img0_buffer.rows == 0) {
         time_buffer = cv_ptr->header.stamp.toSec();

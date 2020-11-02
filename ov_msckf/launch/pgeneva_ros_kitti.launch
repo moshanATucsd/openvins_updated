@@ -57,7 +57,7 @@
         
         <param name="num_pts"            type="int"    value="200" />
         <!-- <param name="num_pts"            type="int"    value="0" />         -->
-        
+
         <param name="fast_threshold"     type="int"    value="10" />
         <param name="grid_x"             type="int"    value="10" />
         <param name="grid_y"             type="int"    value="5" />
